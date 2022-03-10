@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
-
-*, body {
+*,
+body {
     font-family: 'Poppins', sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -8,20 +8,20 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     background-color: #152733;
     overflow: hidden;
 }
 
-
 .form-holder {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
 }
 
 .form-holder .form-content {
@@ -74,12 +74,16 @@ html, body {
     margin-bottom: 30px;
 }
 
-
-.form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+.form-content label,
+.was-validated .form-check-input:invalid~.form-check-label,
+.was-validated .form-check-input:valid~.form-check-label {
     color: #fff;
 }
 
-.form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+.form-content input[type=text],
+.form-content input[type=password],
+.form-content input[type=email],
+.form-content select {
     width: 100%;
     padding: 9px 20px;
     text-align: left;
@@ -95,19 +99,20 @@ html, body {
     margin-top: 16px;
 }
 
-
-.btn-primary{
+.btn-primary {
     background-color: #6C757D;
     outline: none;
     border: 0px;
-     box-shadow: none;
+    box-shadow: none;
 }
 
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
     background-color: #495056;
     outline: none !important;
     border: none !important;
-     box-shadow: none;
+    box-shadow: none;
 }
 
 .form-content textarea {
@@ -129,72 +134,44 @@ html, body {
     margin-bottom: 14px;
 }
 
-.form-content textarea:hover, .form-content textarea:focus {
+.form-content textarea:hover,
+.form-content textarea:focus {
     border: 0;
     background-color: #ebeff8;
     color: #8D8D8D;
 }
 
-.mv-up{
+.mv-up {
     margin-top: -9px !important;
     margin-bottom: 8px !important;
 }
 
-.invalid-feedback{
+.invalid-feedback {
     color: #ff606e;
 }
 
-.valid-feedback{
-   color: #2acc80;
+.valid-feedback {
+    color: #2acc80;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*{
+* {
     padding: 0;
     margin: 0;
 }
 
-.bg-container{
+.bg-container {
     width: 100%;
     height: 100vh;
     overflow: hidden;
 }
 
-.bg-container img{
+.bg-container img {
     width: 100%;
     height: 100vh;
     filter: brightness(0.4) blur(1px);
 }
 
-
-.mynavbar{
+.mynavbar {
     position: absolute;
     display: flex;
     flex-direction: row;
@@ -205,17 +182,17 @@ html, body {
     color: white;
 }
 
-.mynavbar i{
-    margin-right: -20vw;
+.mynavbar i {
+    margin-left: 30vw;
     cursor: pointer;
 }
 
-.mynavbar img{
+.mynavbar img {
     cursor: pointer;
-    margin-left: -20vw;
+    margin-left: -5vw;
 }
 
-.body-container{
+.body-container {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -227,23 +204,19 @@ html, body {
     color: white;
 }
 
-
-.body-container h1{
+.body-container h1 {
     font-size: 5vw;
 }
 
-
-.body-container p{
+.body-container p {
     font-size: 1.5vw;
     text-transform: uppercase;
 }
 
-
-.body-container button{
+.body-container button {
     font-size: 2.5vw;
     background: none;
 }
-
 
 .hbtn {
     position: relative;
@@ -259,17 +232,17 @@ html, body {
     white-space: nowrap;
     z-index: 0;
     cursor: pointer;
-  }
-  
-  .hbtn i {
+}
+
+.hbtn i {
     padding-right: 8px;
-  }
-  
-  .hpill {
+}
+
+.hpill {
     border-radius: 50px;
-  }
-  
-  .hbtn.hb-fill-on:before {
+}
+
+.hbtn.hb-fill-on:before {
     position: absolute;
     content: '';
     background: #ffffff;
@@ -282,10 +255,10 @@ html, body {
     width: 100%;
     height: 100%;
     opacity: 0;
-  }
-  
-  .hbtn.hb-fill-on:hover:before {
+}
+
+.hbtn.hb-fill-on:hover:before {
     width: 100%;
     height: 100%;
     opacity: 1;
-  }
+}

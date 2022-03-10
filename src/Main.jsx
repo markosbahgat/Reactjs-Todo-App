@@ -5,6 +5,7 @@ import Typewriter from 'typewriter-effect';
 import {
   Link
 } from "react-router-dom";
+import './App.css';
 
 const text = 'Do More of the Things that Matter Most...!';
 
@@ -14,8 +15,8 @@ export default function Main() {
         <div>
          <div className="App w-100 col-12">
         <div className="mynavbar">
-          <img src={logo} style={{width:"10%"}} alt="#"/>
-          <Link to="/Register"><i class="far fa-user-circle" style={{fontSize:"45px"}}></i></Link>
+          <img src={logo} style={{width:"20%"}} alt="#"/>
+          <Link to="/Register" hidden><i class="far fa-user-circle" style={{fontSize:"45px"}}></i></Link>
         </div>
       <div className="body-container">
         <h1>TODO LIST!</h1>
@@ -31,7 +32,7 @@ typewriter.typeString(text)
       .start();
   }}
 />}</p>
-        <Link to="/Register" className="hbtn hpill hb-fill-on">Get Started</Link>
+        <Link to="/tasks" className="hbtn hpill hb-fill-on">Get Started</Link>
       </div>
       <div className="bg-container" ><img src={background} alt="#"/></div>   
         </div></div>

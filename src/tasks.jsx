@@ -1,28 +1,33 @@
-import React, { useReducer, useState } from 'react'
-import './taskstyles.css';
-
-import background from './Images/5282d04a5446e70d3851fca036b7a0f9.jpg'
-import logo from './Images/unnamed.png';
+import React, { useReducer, useState, useEffect } from 'react'
 import {
   Link
 } from "react-router-dom";
 
 
+import logo from './Images/unnamed.png';
+import background from './Images/5282d04a5446e70d3851fca036b7a0f9.jpg'
+import './taskstyles.css';
+
+
+
+
+/*==============================================================================*/
+
+const initialState = JSON.parse(localStorage.getItem("todos")) != null ? JSON.parse(localStorage.getItem("todos")) : [];
+
 export default function Tasks() {
-
-
-
 const ACTIONS = {
   ADD_TODO : 'add_todo',
   TOGGLE_TODO : 'toggle_todo',
   DELETE_TODO : 'delete_todo'
 }
 
+
 function reducer(state, action){
-  switch (action.type) {
+    switch (action.type) {
     case ACTIONS.ADD_TODO:
-      return [...state, addedTodo(action.payload.newtodo)]
-    case ACTIONS.TOGGLE_TODO:
+      return [...state, addedTodo(action.payload.newtodo, action.payload.mydate)]
+      case ACTIONS.TOGGLE_TODO:
       return state.map(todo => {
         if(todo.id === action.payload.id){
           return {...todo, complete: !todo.complete};
@@ -37,40 +42,60 @@ function reducer(state, action){
   }
 }
 
-
-function addedTodo(newtodo) {
-  return {id : Date.now(), name:newtodo , complete : false , dateandtime:datemine.toLocaleDateString( "en-US" ,{ weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}
+function addedTodo(newtodo,mydate) {
+  const mytodo = {id : Date.now(), name:newtodo , complete : false , dateandtime:mydate};
+  return mytodo
 }
 
 const datemine = new Date();
- /*setTimeout(function(){
+ setTimeout(function(){
       document.querySelector('input[type="checkbox"]').setAttribute('checked',true);
-      },100);
-  */
+},100);
   
-  const [state, dispatch] = useReducer(reducer, []);
-  const [newtodo , setNewTodo] = useState('');
   
+
+ 
+const [state, dispatch] = useReducer(reducer, initialState);
+const [newtodo , setNewTodo] = useState('');
+const [mydate , setNewDate] = useState('');
+
+
+useEffect(
+    () => {
+      localStorage.setItem("todos", JSON.stringify(state));
+    },
+    [state]
+);
+
+
   function handleAddTodo(e) {
     e.preventDefault();
-    dispatch({type: ACTIONS.ADD_TODO, payload: {newtodo:newtodo}})
+    dispatch({type: ACTIONS.ADD_TODO, payload: {newtodo:newtodo, mydate:mydate}})
     setNewTodo('')
-  }
+    setNewDate('')
+    e.target.parentElement.children[1].lastChild.style.left = "80%";
+    e.target.classList.add("form-input");
+    e.target.parentElement.children[2].style.left = "";
+    e.target.parentElement.children[3].style.left = "";
+   }
   function handleToggleTodo(todo) {
     dispatch({payload:{id: todo.id}, type:ACTIONS.TOGGLE_TODO})
   }
   
     
   function handleShowInput(e) {
-    e.target.parentElement.classList.remove("form-input");
+    e.target.style.left = "-500px";
+    e.target.parentElement.parentElement.children[0].classList.remove("form-input");
+    e.target.parentElement.parentElement.children[2].style.left = "-1000px";
+    e.target.parentElement.parentElement.children[3].style.left = "-1000px";
   }
-  
-      return (
-        <div>
 
-            <div className="mynavbar">
-          <img src={logo} style={{width:"10%"}} alt="#"/>
-          <Link to="/Register"><i className="far fa-user-circle" style={{fontSize:"45px"}}></i></Link>
+  
+return (
+     <div>
+
+            <div className="mynavbar" style={{marginLeft:"130px", marginTop:"-40px",marginBottom:"100px", width:"100%",display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"space-around"}}>
+            <Link to="/"><img src={logo} width="60%"  alt="#"/></Link>
         </div>
         <div className="tasks-container">
           
@@ -90,12 +115,14 @@ const datemine = new Date();
       <circle id="todo__circle" cx="13.5" cy="12.5" r="10" />
     </defs>
   </svg>
-  <div className="todo-list overflow-hidden">
+  <div className="todo-list">
 <form onSubmit={handleAddTodo} className="form-input">
-          <input value={newtodo} placeholder='Add New Todo , Then Press "Enter" To Save It.....' type="text" onChange={e => setNewTodo(e.target.value)}/>
-            <button className="add-button" onClick={e => handleShowInput(e)}><i className="fas fa-plus"></i></button>
+          <input value={newtodo} placeholder='Add New Todo , Then Press "Enter" To Save It.....' type="text" onChange={e => setNewTodo(e.target.value)} className="input-text" autoFocus/>
+          <input type="date" className="input-date" value={mydate} onChange={event => setNewDate(event.target.value)} />
           </form>
-    <span>{datemine.toLocaleDateString( "en-US" ,{ weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
+            <button className="add-button" onClick={e => handleShowInput(e)}><i className="fas fa-plus"></i></button>
+    <span className="main-span">{datemine.toLocaleDateString( "en-US" ,{ weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
+    <p className="main-p">{state.length} tasks</p>
     <hr style={{height:"2px"}}/>
     <label className="todo">
       <input className="todo__state" type="checkbox" onClick={e => handleToggleTodo(e)}/>
@@ -107,8 +134,8 @@ const datemine = new Date();
       </svg>
       <div className="todo__text" onClick={e => handleToggleTodo(e)}>Do a very important task</div>
     </label>
-    {state.map(todo => {
-      return <label className="todo">
+    {state.map(todo => { 
+        return  <label className="todo" key={todo.id}>
           <input className="todo__state" type="checkbox" onClick={todo => handleToggleTodo(todo)}/>
           <svg xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 200 25" className="todo__icon">
             <use xlinkHref="#todo__line" className="todo__line" />
@@ -116,8 +143,8 @@ const datemine = new Date();
             <use xlinkHref="#todo__check" className="todo__check" />
             <use xlinkHref="#todo__circle" className="todo__circle" />
           </svg>
-          <div className="todo__text" style={{color:todo.complete ? '#000' : '#fff'}}>{todo.name}<i className="far fa-edit"></i>
-          <i onClick={() => dispatch({payload:{id: todo.id}, type:ACTIONS.DELETE_TODO})} className="far fa-trash-alt" style={{zIndex:"10000", position:"relative"}}></i>
+          <div className="todo__text">{todo.name} {todo.dateandtime}<i className="far fa-edit ms-5" hidden></i>
+          <i onClick={() => dispatch({payload:{id: todo.id}, type:ACTIONS.DELETE_TODO})} className="far fa-trash-alt" style={{zIndex:"10000", position:"relative", float:"right"}}></i>
           </div>
         </label>
     })}

@@ -1,13 +1,17 @@
 import React from 'react';
-import './App.css';
-import Register from './Registeration.jsx';
-
 import {
   BrowserRouter,
   Route
 } from "react-router-dom";
+
+
+import './App.css';
+import Register from './Registeration.jsx';
 import Main from './Main';
 import Tasks from './tasks';
+
+
+
 
 function handleregistersubmit(e) {
   e.preventDefault();
